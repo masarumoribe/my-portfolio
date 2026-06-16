@@ -1,8 +1,24 @@
 import { RigidBody } from '@react-three/rapier'
-import { COLORS, SCENE } from '../config'
+import { COLORS, SCENE, SKILLS } from '../config'
+import PythonBottle from './models/PythonBottle'
+import JSBottle from './models/JSBottle'
+import ReactBottle from './models/ReactBottle'
+import CSSBottle from './models/CSSBottle'
+import HTMLBottle from './models/HTMLBottle'
+import NodeBottle from './models/NodeBottle'
+import Bottle from './Bottle'
 
 function Bar() {
   const { counterY, counterH, shelf1Y, shelf2Y, shelfW, shelfH, roomWidth } = SCENE
+
+  const CUSTOM_BOTTLES = {
+    'Python': PythonBottle,
+    'React':  ReactBottle,
+    'Node':   NodeBottle,
+    'JS':     JSBottle,
+    'HTML':    HTMLBottle,
+    'CSS':    CSSBottle,
+  }
 
   return (
     <group>
@@ -32,7 +48,7 @@ function Bar() {
           position={[0, shelf1Y, -1.5]}
           receiveShadow
         >
-          <boxGeometry args={[shelfW, shelfH, 0.5]} />
+          <boxGeometry args={[shelfW, shelfH, 0.8]} />
           <meshStandardMaterial color={COLORS.shelf} />
         </mesh>
       </RigidBody>
@@ -78,6 +94,39 @@ function Bar() {
           <meshStandardMaterial color={COLORS.wall} />
         </mesh>
       </RigidBody>
+
+      {/* ── Skill bottles ────────────────────────────────────── */}
+        {/* Spread across the top shelf. We calculate the X position
+            of each bottle so they're evenly spaced and centered.
+            bottleGap is the space between each bottle center. */}
+        {SKILLS.map((skill, i) => {
+        const bottleGap = 1.1
+        const totalWidth = (SKILLS.length - 1) * bottleGap
+        const x = -totalWidth / 2 + i * bottleGap
+        const pos = [x, SCENE.shelf1Y + 0.6, -1.5]
+
+        const CustomModel = CUSTOM_BOTTLES[skill.label]
+        if (CustomModel) {
+          return (
+            <CustomModel
+              key={skill.label}
+              position={pos}
+              scale={skill.scale}
+              yOffset={skill.yOffset}
+            />
+          )
+        }
+        
+
+        return (
+            <Bottle
+            key={skill.label}
+            position={pos}
+            color={skill.color}
+            label={skill.label}
+            />
+        )
+        })}
 
     </group>
   )

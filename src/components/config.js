@@ -32,12 +32,12 @@ export const COLORS = {
   // color is the bottle glass tint, label is the text on the label.
   
   export const SKILLS = [
-    { label: 'React',   color: '#3A6A9E' },
-    { label: 'Node',    color: '#4A8A72' },
-    { label: 'Python',  color: '#7B6AAE' },
-    { label: 'TS',      color: '#A06040' },
-    { label: 'SQL',     color: '#884468' },
-    { label: 'CSS',     color: '#887230' },
+    { label: 'React',   color: '#3A6A9E', scale: 1.0,  yOffset: 0    },
+    { label: 'Node',    color: '#4A8A72', scale: 0.85, yOffset: -0.05 },
+    { label: 'Python',  color: '#7B6AAE', scale: 1.1,  yOffset: 0.05 },
+    { label: 'JS',      color: '#A06040', scale: 0.9,  yOffset: 0    },
+    { label: 'HTML',     color: '#884468', scale: 1.05, yOffset: 2 },
+    { label: 'CSS',     color: '#887230', scale: 0.95, yOffset: 0    },
   ]
   
   // ─── Projects ───────────────────────────────────────────────
