@@ -4,7 +4,7 @@ import { RigidBody } from '@react-three/rapier'
 function HTMLBottle({ position, scale = 1.3, yOffset = 0 }) {
   const { nodes, materials } = useGLTF('/models/html_vodka.glb')
 
-  const adjustedPosition = [position[0], position[1] + yOffset, position[2]]
+  const adjustedPosition = [position[0] - 0.2, position[1] + yOffset - 1.3, position[2]]
 
   return (
     <group scale={scale}>

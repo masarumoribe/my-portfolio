@@ -12,7 +12,7 @@ function BarScene() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setReady(true), 10)
+    const timer = setTimeout(() => setReady(true), 100)
     return () => clearTimeout(timer)
   }, [])
 

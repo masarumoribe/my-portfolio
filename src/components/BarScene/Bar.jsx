@@ -1,5 +1,6 @@
 import { RigidBody } from '@react-three/rapier'
-import { COLORS, SCENE, SKILLS } from '../config'
+import { COLORS, SCENE, SKILLS, PROJECTS } from '../config'
+import CounterModel from './models/CounterModel'
 import PythonBottle from './models/PythonBottle'
 import JSBottle from './models/JSBottle'
 import ReactBottle from './models/ReactBottle'
@@ -7,6 +8,7 @@ import CSSBottle from './models/CSSBottle'
 import HTMLBottle from './models/HTMLBottle'
 import NodeBottle from './models/NodeBottle'
 import Bottle from './Bottle'
+import Coaster from './Coaster'
 
 function Bar() {
   const { counterY, counterH, shelf1Y, shelf2Y, shelfW, shelfH, roomWidth } = SCENE
@@ -23,44 +25,31 @@ function Bar() {
   return (
     <group>
 
-      {/* ── Counter top ──────────────────────────────────────── */}
+      {/* ── Counter physics collider (invisible) ──────────────────────────────────────── */}
       <RigidBody type="fixed" friction={0.8} restitution={0.2}>
         <mesh
-          position={[0, counterY - counterH / 2, 0]}
+          position={[0, counterY - counterH / 1 + 1, 1.5]}
           receiveShadow
         >
           <boxGeometry args={[roomWidth, counterH, 2]} />
-          <meshStandardMaterial color={COLORS.counterTop} />
+          <meshStandardMaterial colorWrite={false}/>
         </mesh>
       </RigidBody>
 
-      {/* ── Counter front face ───────────────────────────────── */}
-      {/* Moved forward on Z (-0.6 instead of -0.8) so it doesn't
-          share a plane with the counter top's back edge */}
-      <mesh position={[0, counterY - 1.3, -0.6]}>
-        <boxGeometry args={[roomWidth, 2.4, 0.25]} />
-        <meshStandardMaterial color={COLORS.counter} />
-      </mesh>
+      {/* ── Counter visual model ──────────────────────────────── */}
+      <CounterModel
+        position={[0, counterY - counterH / 2 + 0.23, 0]}
+        scale={5.6}
+      />
 
       {/* ── Shelf 1 (top) ────────────────────────────────────── */}
       <RigidBody type="fixed" friction={0.7} restitution={0.3}>
         <mesh
-          position={[0, shelf1Y, -1.5]}
+          position={[0, shelf1Y + 0.1, -2]}
           receiveShadow
         >
-          <boxGeometry args={[shelfW, shelfH, 0.8]} />
-          <meshStandardMaterial color={COLORS.shelf} />
-        </mesh>
-      </RigidBody>
-
-      {/* ── Shelf 2 (middle) ─────────────────────────────────── */}
-      <RigidBody type="fixed" friction={0.7} restitution={0.3}>
-        <mesh
-          position={[0, shelf2Y, -1.5]}
-          receiveShadow
-        >
-          <boxGeometry args={[shelfW * 0.78, shelfH, 0.5]} />
-          <meshStandardMaterial color={COLORS.shelf} />
+          <boxGeometry args={[shelfW, shelfH, 1]} />
+          <meshStandardMaterial colorWrite={false}/>
         </mesh>
       </RigidBody>
 
@@ -103,7 +92,7 @@ function Bar() {
         const bottleGap = 1.1
         const totalWidth = (SKILLS.length - 1) * bottleGap
         const x = -totalWidth / 2 + i * bottleGap
-        const pos = [x, SCENE.shelf1Y + 0.6, -1.5]
+        const pos = [x, SCENE.shelf1Y + 0.6, -2.1]
 
         const CustomModel = CUSTOM_BOTTLES[skill.label]
         if (CustomModel) {
@@ -127,6 +116,24 @@ function Bar() {
             />
         )
         })}
+
+    {/* ── Project coasters ─────────────────────────────────── */}
+      {/* Spread across the counter surface, centered.
+          coasterGap is the space between each coaster center. */}
+      {PROJECTS.map((project, i) => {
+        const coasterGap = 1.6
+        const totalWidth = (PROJECTS.length - 1) * coasterGap
+        const x = -totalWidth / 2 + i * coasterGap
+
+        return (
+          <Coaster
+            key={project.label}
+            position={[x, SCENE.counterY + 1.3, 1]}
+            project={project}
+            onSelect={(p) => console.log('selected:', p.label)}
+          />
+        )
+      })}
 
     </group>
   )

@@ -17,7 +17,7 @@ function ReactBottle({ position, scale = 1, yOffset = 0 }) {
         linearDamping={0.8}
         angularDamping={0.8}
       >
-        <group scale={scale} dispose={null}>
+        <group scale={0.7} dispose={null}>
           <mesh
             castShadow
             receiveShadow

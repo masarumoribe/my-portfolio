@@ -95,7 +95,7 @@ export const COLORS = {
     // Coasters
     coasterW:     1.2,   // width of a coaster
     coasterH:     0.08,  // thickness
-    coasterD:     0.7,   // depth
+    coasterD:     0.9,   // depth
   
     // Letters
     letterSize:   0.38,  // size of each MASARU letter cube

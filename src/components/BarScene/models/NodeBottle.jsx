@@ -4,14 +4,14 @@ import { RigidBody } from '@react-three/rapier'
 function NodeBottle({ position, scale = 1, yOffset = 0 }) {
   const { nodes, materials } = useGLTF('/models/node_bourbon.glb')
 
-  const adjustedPosition = [position[0], 2, position[2]]
+  const adjustedPosition = [position[0] - 0.3, 2, position[2] - 0.5]
 
   return (
     <group scale={scale}>
       <RigidBody
         type="dynamic"
         position={adjustedPosition}
-        restitution={0.2}
+        restitution={0.5}
         friction={0.8}
         colliders="hull"     
         linearDamping={0.8}
