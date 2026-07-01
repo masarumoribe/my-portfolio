@@ -1,6 +1,7 @@
 import { RigidBody } from '@react-three/rapier'
 import { COLORS, SCENE, SKILLS, PROJECTS } from '../config'
 import CounterModel from './models/CounterModel'
+import WallModel from './models/WallModel'
 import PythonBottle from './models/PythonBottle'
 import JSBottle from './models/JSBottle'
 import ReactBottle from './models/ReactBottle'
@@ -62,27 +63,28 @@ function Bar() {
       </RigidBody>
 
       {/* ── Back wall ────────────────────────────────────────── */}
-      {/* Pushed back to -2.8 — clear of all shelf Z positions */}
-      <mesh position={[0, 1, -2.8]}>
-        <boxGeometry args={[roomWidth, 8, 0.2]} />
-        <meshStandardMaterial color={COLORS.wall} />
-      </mesh>
+      {/* Purely visual — position it behind the counter and shelves.
+          Start with scale 1 and adjust until it fills the background. */}
+      <WallModel
+        position={[0, 1.4, -2.8]}
+        scale={8}
+      />
 
       {/* ── Left wall ────────────────────────────────────────── */}
-      <RigidBody type="fixed">
+      {/* <RigidBody type="fixed">
         <mesh position={[-roomWidth / 2, 0, 0]}>
           <boxGeometry args={[0.2, 8, 8]} />
           <meshStandardMaterial color={COLORS.wall} />
         </mesh>
-      </RigidBody>
+      </RigidBody> */}
 
       {/* ── Right wall ───────────────────────────────────────── */}
-      <RigidBody type="fixed">
+      {/* <RigidBody type="fixed">
         <mesh position={[roomWidth / 2, 0, 0]}>
           <boxGeometry args={[0.2, 8, 8]} />
           <meshStandardMaterial color={COLORS.wall} />
         </mesh>
-      </RigidBody>
+      </RigidBody> */}
 
       {/* ── Skill bottles ────────────────────────────────────── */}
         {/* Spread across the top shelf. We calculate the X position
