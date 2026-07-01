@@ -105,3 +105,33 @@ export const COLORS = {
     cameraZ:      7,     // how far back the camera sits
     cameraY:      0.5,   // slight upward tilt target
   }
+
+  import * as THREE from 'three'
+
+// ─── Journey waypoints ──────────────────────────────────────
+// Each waypoint is a 3D position the fairy travels through.
+// The camera follows slightly behind and above each point.
+// Add or adjust points to reshape the path.
+
+export const WAYPOINTS = [
+  new THREE.Vector3( 0,    0.5,  8),   // 0.00 — Arrival
+  new THREE.Vector3(-2,    1.2,  5),   // 0.14 — moving in
+  new THREE.Vector3(-1,    0.8,  2),   // 0.28 — Skills
+  new THREE.Vector3( 2,    0.4,  0),   // 0.42 — transition
+  new THREE.Vector3( 1,    0.6, -3),   // 0.57 — Projects
+  new THREE.Vector3(-1,    1.2, -6),   // 0.71 — About
+  new THREE.Vector3( 0,    0.8, -9),   // 0.85 — transition
+  new THREE.Vector3( 0.5,  0.5, -12),  // 1.00 — Contact
+]
+
+// ─── Moment thresholds ──────────────────────────────────────
+// Each moment activates when scroll progress enters its range.
+// Components use these to know when to show/hide.
+
+export const MOMENTS = {
+  arrival:  { start: 0.0,  end: 0.2  },
+  skills:   { start: 0.2,  end: 0.45 },
+  projects: { start: 0.45, end: 0.65 },
+  about:    { start: 0.65, end: 0.85 },
+  contact:  { start: 0.85, end: 1.0  },
+}
