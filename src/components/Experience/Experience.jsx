@@ -8,9 +8,8 @@ import Fairy from './Fairy'
 import CameraRig from './CameraRig'
 import Journey from './Journey'
 
-function Experience() {
-  const progressRef = useRef(0)   // 0 → 1, drives everything
-  const targetRef   = useRef(0)   // scroll target, fairy lerps toward this
+function Experience({ progressRef, targetRef }) {
+  const lastScrollTime = useRef(0)
 
   const handleScroll = (e) => {
     targetRef.current = THREE.MathUtils.clamp(
