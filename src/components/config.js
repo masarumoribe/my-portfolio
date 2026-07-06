@@ -4,7 +4,7 @@
 
 export const COLORS = {
   // Background / environment
-  background:   '#0D0A1A',
+  background:   '#292247',
   fog:          '#0D0A1A',
 
   // Counter and shelves — brighter for now so we can see them
@@ -30,14 +30,50 @@ export const COLORS = {
   // ─── Skills ─────────────────────────────────────────────────
   // Each skill becomes a bottle on the top shelf.
   // color is the bottle glass tint, label is the text on the label.
-  
+  // scale is the size of the bottle.
   export const SKILLS = [
-    { label: 'React',   color: '#3A6A9E', scale: 1.0,  yOffset: 0    },
-    { label: 'Node',    color: '#4A8A72', scale: 0.85, yOffset: -0.05 },
-    { label: 'Python',  color: '#7B6AAE', scale: 1.1,  yOffset: 0.05 },
-    { label: 'JS',      color: '#A06040', scale: 0.9,  yOffset: 0    },
-    { label: 'HTML',     color: '#884468', scale: 1.05, yOffset: 2 },
-    { label: 'CSS',     color: '#887230', scale: 0.95, yOffset: 0    },
+    {
+      label:       'React',
+      description: 'Bright, energetic, and made for good experiences. React brings interfaces to life with reusable components and a fast pace. Like tequila, it\'s the life of the frontend party when used well.',
+      bottle:      'Tequila',
+      color:       '#3A6A9E',
+      scale:       0.9,
+    },
+    {
+      label:       'Node',
+      description: 'Reliable, bold, and built to last. Node.js powers the backend with warmth and versatility. Much like a good bourbon, it\'s comfortable on its own but also blends perfectly with everything around it.',
+      bottle:      'Bourbon',
+      color:       '#4A8A72',
+      scale:       1.0,
+    },
+    {
+      label:       'Python',
+      description: 'Elegant, readable, dangerously easy to love. Python is the scotch of programming — aged, refined, and makes you look like you know what you\'re doing.',
+      bottle:      'Scotch',
+      color:       '#7B6AAE',
+      scale:       1.1,
+    },
+    {
+      label:       'JS',
+      description: 'Versatile with endless possibilities. Gin can become almost any cocktail, and JavaScript can become almost any application. Sometimes a little unpredictable, but incredibly rewarding in the right hands.',
+      bottle:      'Gin',
+      color:       '#A06040',
+      scale:       0.9,
+    },
+    {
+      label:       'HTML',
+      description: 'The foundation of every great mix. HTML provides the structure everything else depends on. Like vodka, it may not steal the spotlight, but almost nothing works without it.',
+      bottle:      'Tequila',
+      color:       '#884468',
+      scale:       1.05,
+    },
+    {
+      label:       'CSS',
+      description: 'Full of character and unmistakable style. CSS transforms plain layouts into memorable experiences. Just as rum adds personality to a cocktail, CSS gives every website its unique look and feel.',
+      bottle:      'Rum',
+      color:       '#887230',
+      scale:       0.95,
+    },
   ]
   
   // ─── Projects ───────────────────────────────────────────────
@@ -129,9 +165,9 @@ export const WAYPOINTS = [
 // Components use these to know when to show/hide.
 
 export const MOMENTS = {
-  arrival:  { start: 0.0,  end: 0.2  },
-  skills:   { start: 0.2,  end: 0.45 },
-  projects: { start: 0.45, end: 0.65 },
-  about:    { start: 0.65, end: 0.85 },
-  contact:  { start: 0.85, end: 1.0  },
+  arrival:  { start: 0.0,  end: 0.10 },
+  skills:   { start: 0.15, end: 0.60 },
+  projects: { start: 0.60, end: 0.75 },
+  about:    { start: 0.75, end: 0.88 },
+  contact:  { start: 0.88, end: 1.0  },
 }

@@ -7,13 +7,14 @@ import { COLORS, WAYPOINTS } from '../config'
 import Fairy from './Fairy'
 import CameraRig from './CameraRig'
 import Journey from './Journey'
+import Skills from './moments/Skills'
 
 function Experience({ progressRef, targetRef }) {
   const lastScrollTime = useRef(0)
 
   const handleScroll = (e) => {
     targetRef.current = THREE.MathUtils.clamp(
-      targetRef.current + e.deltaY * 0.0002,
+      targetRef.current + e.deltaY * 0.00007,
       0,
       1
     )
@@ -31,7 +32,7 @@ function Experience({ progressRef, targetRef }) {
         }}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.5} color={COLORS.ambient} />
+        <ambientLight intensity={1.8} color="#ffffff" />
         <pointLight position={[0, 5, 5]} intensity={1} color={COLORS.moonLight} />
 
         {/* Ambient magic dust */}
@@ -48,6 +49,7 @@ function Experience({ progressRef, targetRef }) {
         <Fairy progressRef={progressRef} targetRef={targetRef} />
         <CameraRig progressRef={progressRef} />
         <Journey progressRef={progressRef} targetRef={targetRef} />
+        <Skills progressRef={progressRef} />
 
       </Canvas>
     </div>

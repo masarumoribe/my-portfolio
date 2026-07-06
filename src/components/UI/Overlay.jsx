@@ -6,13 +6,15 @@
 
 import { useRef, useEffect, useState } from 'react'
 import ArrivalText from './ArrivalText'
-import { MOMENTS } from '../config'
+import SkillCard from './SkillCard'
+import { MOMENTS, SKILLS } from '../config'
 
 function Overlay({ progressRef }) {
   // We need to re-render this HTML layer when progress changes.
   // R3F's useFrame doesn't work outside the Canvas, so we use
   // requestAnimationFrame to poll progressRef and update state.
   const [progress, setProgress] = useState(0)
+  const [activeSkill, setActiveSkill] = useState(null)
 
   useEffect(() => {
     let frameId
@@ -29,6 +31,27 @@ function Overlay({ progressRef }) {
     frameId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frameId)
   }, [progressRef])
+  // Derive active skill from progress
+  // Divides the skills range into equal slices — same logic as Skills.jsx
+  useEffect(() => {
+    const { start, end } = MOMENTS.skills
+    const sliceSize = (end - start) / SKILLS.length
+    const gap       = 0.02
+
+    if (progress < start || progress > end) {
+      setActiveSkill(null)
+      return
+    }
+
+    // Find which skill's window we're currently in
+    const found = SKILLS.find((_, i) => {
+      const windowStart = start + i * sliceSize + gap / 2
+      const windowEnd   = windowStart + sliceSize - gap
+      return progress >= windowStart && progress <= windowEnd
+    })
+
+    setActiveSkill(found || null)
+  }, [progress])
 
   // Helper — returns opacity 0 or 1 based on whether progress
   // is within a moment's range. Fades in/out over a small threshold.
@@ -53,6 +76,7 @@ function Overlay({ progressRef }) {
       zIndex:        10,
     }}>
       <ArrivalText opacity={getMomentOpacity('arrival')} />
+      <SkillCard skill={activeSkill} visible={activeSkill !== null} />
     </div>
   )
 }

@@ -5,6 +5,9 @@
 function ArrivalText({ opacity }) {
     return (
       <div style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        padding: '3rem',
+        borderRadius: '0.5rem',
         position:   'absolute',
         bottom:     '12vh',
         left:       '50%',

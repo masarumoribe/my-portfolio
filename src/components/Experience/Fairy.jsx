@@ -46,6 +46,15 @@ function Fairy({ progressRef }) {
           toneMapped={false}
         />
 
+        {/* Point light attached to the fairy — illuminates nearby objects */}
+        <pointLight
+          color="#FFF5E8"
+          intensity={15}
+          distance={8}
+          decay={2}
+        />
+
+
         {/* Outer glow shell */}
         <mesh ref={glowRef}>
           <sphereGeometry args={[0.28, 16, 16]} />
