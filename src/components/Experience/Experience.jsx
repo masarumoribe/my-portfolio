@@ -1,29 +1,40 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Sparkles } from '@react-three/drei'
 import { Fog } from 'three'
 import * as THREE from 'three'
-import { COLORS, WAYPOINTS } from '../config'
+import { COLORS, WAYPOINTS, TOTAL_SCROLL } from '../config'
 import Fairy from './Fairy'
 import CameraRig from './CameraRig'
 import Journey from './Journey'
 import Skills from './moments/Skills'
+import Explosion from './Explosion'
 
-function Experience({ progressRef, targetRef }) {
-  const lastScrollTime = useRef(0)
+function Experience({ progressRef, targetRef, scrollYRef, targetScrollY }) {
+  const divRef         = useRef()
 
-  const handleScroll = (e) => {
-    targetRef.current = THREE.MathUtils.clamp(
-      targetRef.current + e.deltaY * 0.00007,
+  const handleWheel = (e) => {
+    e.preventDefault()
+  
+    targetScrollY.current = THREE.MathUtils.clamp(
+      targetScrollY.current + e.deltaY,
       0,
-      1
+      TOTAL_SCROLL
     )
   }
 
+  
+  // Use a non-passive listener so preventDefault works
+  useEffect(() => {
+    const el = divRef.current
+    el.addEventListener('wheel', handleWheel, { passive: false })
+    return () => el.removeEventListener('wheel', handleWheel)
+  }, [])
+
   return (
     <div
+      ref={divRef}
       style={{ width: '100vw', height: '100vh', background: COLORS.background }}
-      onWheel={handleScroll}
     >
       <Canvas
         camera={{ position: [0, 1, 6], fov: 55 }}
@@ -48,8 +59,14 @@ function Experience({ progressRef, targetRef }) {
         {/* Core components — all share progressRef */}
         <Fairy progressRef={progressRef} targetRef={targetRef} />
         <CameraRig progressRef={progressRef} />
-        <Journey progressRef={progressRef} targetRef={targetRef} />
+        <Journey 
+          progressRef={progressRef} 
+          targetRef={targetRef} 
+          scrollYRef={scrollYRef}
+          targetScrollY={targetScrollY}
+        />
         <Skills progressRef={progressRef} />
+        <Explosion progressRef={progressRef} />
 
       </Canvas>
     </div>

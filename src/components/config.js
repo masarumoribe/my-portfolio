@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 // ─── Palette ────────────────────────────────────────────────
 // These are the core colours used across the whole scene.
 // Tweak these to shift the entire mood of the portfolio.
@@ -63,7 +65,7 @@ export const COLORS = {
     {
       label:       'HTML',
       description: 'The foundation of every great mix. HTML provides the structure everything else depends on. Like vodka, it may not steal the spotlight, but almost nothing works without it.',
-      bottle:      'Tequila',
+      bottle:      'Vodka',
       color:       '#884468',
       scale:       1.05,
     },
@@ -103,46 +105,6 @@ export const COLORS = {
       featured:    false,
     },
   ]
-  
-  // ─── Scene dimensions ───────────────────────────────────────
-  // All measurements are in Three.js units (roughly 1 unit = 1 meter).
-  // Changing these shifts the proportions of the whole room.
-  
-  export const SCENE = {
-    // Room
-    roomWidth:    14,    // total width of the bar room
-    roomHeight:   8,     // total height
-    roomDepth:    6,     // depth (camera looks along -Z)
-  
-    // Counter
-    counterY:    -1.5,   // vertical position of counter surface
-    counterH:     0.25,  // thickness of counter top
-  
-    // Shelves
-    shelf1Y:      1.2,   // top shelf Y position
-    shelf2Y:      0.1,   // middle shelf Y position
-    shelfW:       8,     // shelf width
-    shelfH:       0.12,  // shelf thickness
-  
-    // Bottles
-    bottleH:      0.9,   // height of a bottle
-    bottleR:      0.16,  // radius of bottle cylinder
-  
-    // Coasters
-    coasterW:     1.2,   // width of a coaster
-    coasterH:     0.08,  // thickness
-    coasterD:     0.9,   // depth
-  
-    // Letters
-    letterSize:   0.38,  // size of each MASARU letter cube
-    letterGap:    0.48,  // spacing between letters
-  
-    // Camera
-    cameraZ:      7,     // how far back the camera sits
-    cameraY:      0.5,   // slight upward tilt target
-  }
-
-  import * as THREE from 'three'
 
 // ─── Journey waypoints ──────────────────────────────────────
 // Each waypoint is a 3D position the fairy travels through.
@@ -150,24 +112,34 @@ export const COLORS = {
 // Add or adjust points to reshape the path.
 
 export const WAYPOINTS = [
-  new THREE.Vector3( 0,    0.5,  8),   // 0.00 — Arrival
-  new THREE.Vector3(-2,    1.2,  5),   // 0.14 — moving in
-  new THREE.Vector3(-1,    0.8,  2),   // 0.28 — Skills
-  new THREE.Vector3( 2,    0.4,  0),   // 0.42 — transition
-  new THREE.Vector3( 1,    0.6, -3),   // 0.57 — Projects
-  new THREE.Vector3(-1,    1.2, -6),   // 0.71 — About
-  new THREE.Vector3( 0,    0.8, -9),   // 0.85 — transition
-  new THREE.Vector3( 0.5,  0.5, -12),  // 1.00 — Contact
+  new THREE.Vector3( 0,    0.5,  20),   // 0.00 — Arrival — start far in front
+  new THREE.Vector3(-4,    1.2,  14),   // moving in
+  new THREE.Vector3(-2,    0.8,   8),   // Skills start
+  new THREE.Vector3( 0,    0.6,   2),   // Skills middle
+  new THREE.Vector3( 3,    0.4,  -4),   // Skills end
+  new THREE.Vector3( 0, 0.4, -10),   // transition — explosion
+  new THREE.Vector3(-2,    0.8, -16),   // Projects
+  new THREE.Vector3( 2,    1.0, -22),   // Projects middle
+  new THREE.Vector3( 0,    0.6, -28),   // About
+  new THREE.Vector3(-1,    0.8, -34),   // Contact
 ]
 
 // ─── Moment thresholds ──────────────────────────────────────
-// Each moment activates when scroll progress enters its range.
-// Components use these to know when to show/hide.
+// Total scroll distance in pixels — increase this to make the whole
+// experience longer. 10000 = user needs to scroll 10000px to complete journey.
+export const TOTAL_SCROLL = 30000
 
+// Moments are now defined in pixels instead of 0–1 fractions.
+// This makes it much easier to reason about timing —
+// "skills lasts 3000px of scrolling" is intuitive.
 export const MOMENTS = {
-  arrival:  { start: 0.0,  end: 0.10 },
-  skills:   { start: 0.15, end: 0.60 },
-  projects: { start: 0.60, end: 0.75 },
-  about:    { start: 0.75, end: 0.88 },
-  contact:  { start: 0.88, end: 1.0  },
+  arrival:    { start: 0,     end: 2000  },
+  skills:     { start: 4000,  end: 15000  },
+  transition: { start: 16000,  end: 19000  },
+  projects:   { start: 19000,  end: 24000 },
+  about:      { start: 24000, end: 25000 },
+  contact:    { start: 25000, end: 30000 },
 }
+
+// Helper — converts a pixel value to 0–1 progress
+export const toProgress = (pixels) => pixels / TOTAL_SCROLL

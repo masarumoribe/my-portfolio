@@ -1,18 +1,20 @@
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { TOTAL_SCROLL } from '../config'
 
-// Journey owns the scroll → progress update logic.
-// It lerps progressRef toward targetRef every frame.
-// All moment components read progressRef directly.
-
-function Journey({ progressRef, targetRef }) {
+function Journey({ progressRef, scrollYRef, targetScrollY }) {
   useFrame(() => {
-    progressRef.current = THREE.MathUtils.lerp(
-      progressRef.current,
-      targetRef.current,
-      0.06
+    // Lerp raw scroll position smoothly
+    scrollYRef.current = THREE.MathUtils.lerp(
+      scrollYRef.current,
+      targetScrollY.current,
+      0.04  // lower = smoother/slower feeling
     )
+
+    // Convert to 0-1
+    progressRef.current = scrollYRef.current / TOTAL_SCROLL
   })
+
   return null
 }
 
