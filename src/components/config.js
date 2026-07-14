@@ -79,30 +79,39 @@ export const COLORS = {
   ]
   
   // ─── Projects ───────────────────────────────────────────────
-  // Each project becomes a coaster on the bar counter.
-  // url is where clicking the coaster will take the visitor.
   
   export const PROJECTS = [
     {
-      label:       'barbrain',
-      description: 'AI-powered bar management app',
-      tech:        ['React', 'Node', 'OpenAI'],
-      url:         'https://github.com/masarumoribe',
-      featured:    true,   // featured projects get a ✦ mark
+      label:       'BarBrain',
+      description: 'AI-powered bar management app. Inventory tracking, cocktail CRUD, and a Claude-powered assistant that knows your whole menu.',
+      tech:        ['React', 'FastAPI', 'PostgreSQL', 'Claude API'],
+      url:         'https://github.com/masarumoribe/barbrain',
+      featured:    true,
+      drink:       'Manhattan',
     },
     {
-      label:       'portfolio',
-      description: 'This site',
-      tech:        ['React', 'Three.js', 'Rapier'],
-      url:         'https://github.com/masarumoribe',
+      label:       'Portfolio',
+      description: 'The very thing you\'re looking at. A scroll-driven 3D journey built with React Three Fiber, a fairy orb, and too much caffeine.',
+      tech:        ['React', 'Three.js', 'R3F', 'Rapier'],
+      url:         'https://github.com/masarumoribe/my-portfolio',
       featured:    false,
+      drink:       'Negroni',
     },
     {
-      label:       'freelance',
-      description: 'Client web projects',
-      tech:        ['React', 'TypeScript'],
-      url:         'https://github.com/masarumoribe',
+      label:       'Chika Hula',
+      description: 'Website for a hula dance school in Tokyo. Clean, warm, and built to make visitors feel the aloha spirit before they even walk in.',
+      tech:        ['React', 'Vite'],
+      url:         'https://chikahula.com',
       featured:    false,
+      drink:       'Pina Colada',
+    },
+    {
+      label:       'The Sarau',
+      description: 'Digital home for an art curation collective. Designed to let the artwork speak — minimal interface, maximum impact.',
+      tech:        ['WordPress', 'Elementor'],
+      url:         'https://thesarau.me',
+      featured:    false,
+      drink:       'Mojito',
     },
   ]
 
@@ -136,8 +145,8 @@ export const MOMENTS = {
   arrival:    { start: 0,     end: 2000  },
   skills:     { start: 4000,  end: 15000  },
   transition: { start: 16000,  end: 19000  },
-  projects:   { start: 19000,  end: 24000 },
-  about:      { start: 24000, end: 25000 },
+  projects:   { start: 19000,  end: 21000 },
+  about:      { start: 22000, end: 25000 },
   contact:    { start: 25000, end: 30000 },
 }
 

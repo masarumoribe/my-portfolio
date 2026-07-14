@@ -9,8 +9,9 @@ import CameraRig from './CameraRig'
 import Journey from './Journey'
 import Skills from './moments/Skills'
 import Explosion from './Explosion'
+import Projects from './moments/Projects'
 
-function Experience({ progressRef, targetRef, scrollYRef, targetScrollY }) {
+function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProjectHover, onProjectUnhover }) {
   const divRef         = useRef()
 
   const handleWheel = (e) => {
@@ -67,6 +68,12 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY }) {
         />
         <Skills progressRef={progressRef} />
         <Explosion progressRef={progressRef} />
+
+        <Projects 
+          progressRef={progressRef}
+          onProjectHover={onProjectHover}
+          onProjectUnhover={onProjectUnhover}
+        />
 
       </Canvas>
     </div>
