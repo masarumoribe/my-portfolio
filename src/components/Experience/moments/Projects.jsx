@@ -100,7 +100,7 @@ function Projects({ progressRef, onProjectHover, onProjectUnhover }) {
 
   useFrame(() => {
     const p      = progressRef.current
-    const start  = toProgress(MOMENTS.projects.start)
+    const start  = toProgress(MOMENTS.projects.start - 200)
     const end    = toProgress(MOMENTS.projects.end)
 
     const shouldBeVisible = p >= start && p <= end

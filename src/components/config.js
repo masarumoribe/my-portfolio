@@ -145,7 +145,7 @@ export const MOMENTS = {
   arrival:    { start: 0,     end: 2000  },
   skills:     { start: 4000,  end: 15000  },
   transition: { start: 16000,  end: 19000  },
-  projects:   { start: 19000,  end: 21000 },
+  projects:   { start: 19200,  end: 21000 },
   about:      { start: 22000, end: 25000 },
   contact:    { start: 25000, end: 30000 },
 }

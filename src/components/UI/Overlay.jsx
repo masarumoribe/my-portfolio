@@ -70,8 +70,8 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
         left:       '50%',
         transform:  'translateX(-50%)',
         textAlign:  'center',
-        opacity:    getMomentOpacity('projects', 0.02),
-        transition: 'opacity 0.6s ease',
+        opacity:    getMomentOpacity('projects', 0.01),
+        transition: 'opacity 0.3s ease',
         pointerEvents: 'none',
       }}>
         <p style={{
