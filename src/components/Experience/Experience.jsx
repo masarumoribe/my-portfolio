@@ -14,22 +14,23 @@ import Projects from './moments/Projects'
 function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProjectHover, onProjectUnhover }) {
   const divRef         = useRef()
 
-  const handleWheel = (e) => {
-    e.preventDefault()
-  
-    targetScrollY.current = THREE.MathUtils.clamp(
-      targetScrollY.current + e.deltaY,
-      0,
-      TOTAL_SCROLL
-    )
-  }
-
-  
-  // Use a non-passive listener so preventDefault works
+  // Attached to window (not divRef) so it keeps firing even when the
+  // pointer is over a fixed-position overlay (e.g. AboutText, ProjectHoverCard)
+  // that sits outside this div's DOM subtree and briefly takes pointer-events.
   useEffect(() => {
-    const el = divRef.current
-    el.addEventListener('wheel', handleWheel, { passive: false })
-    return () => el.removeEventListener('wheel', handleWheel)
+    const handleWheel = (e) => {
+      e.preventDefault()
+
+      targetScrollY.current = THREE.MathUtils.clamp(
+        targetScrollY.current + e.deltaY,
+        0,
+        TOTAL_SCROLL
+      )
+    }
+
+    // Use a non-passive listener so preventDefault works
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    return () => window.removeEventListener('wheel', handleWheel)
   }, [])
 
   return (

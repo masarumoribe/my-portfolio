@@ -17,18 +17,20 @@ function Fairy({ progressRef }) {
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime()
     const p = progressRef.current
-    const { transition } = MOMENTS
+    const { transition, about } = MOMENTS
   
     const transStart = toProgress(transition.start)
     const transEnd   = toProgress(transition.end)
+    const aboutStart = toProgress(about.start)
   
-    // Hide the fairy once explosion has happened
-    if (p >= transEnd) {
+    // Hide during explosion/projects, reappear for about onwards
+    if (p >= transEnd && p < aboutStart) {
       if (groupRef.current) groupRef.current.visible = false
       return
     } else {
       if (groupRef.current) groupRef.current.visible = true
     }
+
   
     // Get base position on curve
     const point = curve.getPointAt(THREE.MathUtils.clamp(p, 0, 1))
@@ -38,7 +40,7 @@ function Fairy({ progressRef }) {
     point.x += Math.sin(t * 1.2) * 0.03
   
     // Shaking — increases as we approach the explosion point
-    if (p >= transStart) {
+    if (p >= transStart && p < transEnd) {
       const shakeFactor = (p - transStart) / (transEnd - transStart)
       const shakeAmt    = shakeFactor * 0.3
       point.x += (Math.random() - 0.5) * shakeAmt
@@ -49,7 +51,7 @@ function Fairy({ progressRef }) {
     meshRef.current.position.copy(point)
   
     // Pulse speed — now correctly using toProgress values
-    const pulseSpeed = p >= transStart
+    const pulseSpeed = (p >= transStart && p < transEnd)
       ? 3 + ((p - transStart) / (transEnd - transStart)) * 8
       : 3
     const pulse = 1 + Math.sin(t * pulseSpeed) * 0.15

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Trail } from '@react-three/drei'
 import { useSpring, animated } from '@react-spring/three'
@@ -41,7 +41,7 @@ const SCATTER = [
   { rest: [ 3.0,  3.0,  0.5] },
 ]
 
-function MiniFairy({ index, origin, scattered, converging, color, scaleF }) {
+function MiniFairy({ index, originX, originY, originZ, scattered, converging, color, scaleF }) {
   const meshRef = useRef()
   const phase   = useRef(Math.random() * Math.PI * 2)
 
@@ -54,20 +54,23 @@ function MiniFairy({ index, origin, scattered, converging, color, scaleF }) {
 
   const scatter = SCATTER[index]
 
+  const restPos   = [
+    originX + scatter.rest[0] * scaleF,
+    originY + scatter.rest[1] * scaleF,
+    originZ + scatter.rest[2] * scaleF,
+  ]
+  const originPos = [originX, originY, originZ]
+
   const targetPos = converging
-    ? [origin.x, origin.y, origin.z]
+    ? originPos
     : scattered
-      ? [
-          origin.x + scatter.rest[0] * scaleF,
-          origin.y + scatter.rest[1] * scaleF,
-          origin.z + scatter.rest[2] * scaleF,
-        ]
-      : [origin.x, origin.y, origin.z]
+      ? restPos
+      : originPos
 
   const { position, scale } = useSpring({
     position: targetPos,
-    scale:    scattered && !converging ? 1 : 0,
-    delay:    index * 100,
+    scale:    scattered || converging ? 1 : 0,
+    delay:    index * 200,
     config:   { mass: 1.5, tension: 40, friction: 18 },
   })
 
@@ -86,12 +89,6 @@ function MiniFairy({ index, origin, scattered, converging, color, scaleF }) {
             emissive={color}
             emissiveIntensity={3}
             toneMapped={false}
-          />
-          <pointLight
-            color={color}
-            intensity={3}
-            distance={3}
-            decay={2}
           />
         </mesh>
       </Trail>
@@ -113,17 +110,14 @@ function Explosion({ progressRef }) {
 
   useFrame(() => {
     const p = progressRef.current
-
-    // Fix — use toProgress so curve.getPointAt gets a 0-1 value
-    originRef.current.copy(
-      curve.getPointAt(THREE.MathUtils.clamp(toProgress(MOMENTS.transition.end), 0, 1))
-    )
+  
+    const convergeStart = MOMENTS.projects.end + 500
 
     const shouldScatter  = p >= toProgress(MOMENTS.transition.end) &&
-                           p <  toProgress(MOMENTS.projects.end)
-    const shouldConverge = p >= toProgress(MOMENTS.projects.end) &&
-                           p <= toProgress(MOMENTS.projects.end) + 0.02
-
+                           p <  toProgress(convergeStart)
+    const shouldConverge = p >= toProgress(convergeStart) &&
+                           p <  toProgress(MOMENTS.about.start)
+  
     if (shouldScatter !== wasScattered.current) {
       wasScattered.current = shouldScatter
       setScattered(shouldScatter)
@@ -140,7 +134,9 @@ function Explosion({ progressRef }) {
         <MiniFairy
           key={i}
           index={i}
-          origin={originRef.current}
+          originX={EXPLOSION_POINT.x}
+          originY={EXPLOSION_POINT.y}
+          originZ={EXPLOSION_POINT.z}
           scattered={scattered}
           converging={converging}
           color={color}

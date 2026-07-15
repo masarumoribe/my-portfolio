@@ -30,6 +30,6 @@ function CocktailBarBrain() {
   )
 }
 
-useGLTF.preload('/models/cocktail_barbrain.glb')
+useGLTF.preload('/models/barbrain_manhattan.glb')
 
 export default CocktailBarBrain

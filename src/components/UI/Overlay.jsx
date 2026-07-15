@@ -3,6 +3,7 @@ import ArrivalText from './ArrivalText'
 import SkillCard from './SkillCard'
 import { MOMENTS, SKILLS, toProgress } from '../config'
 import ProjectHoverCard from './ProjectHoverCard'
+import AboutText from './AboutText'
 
 function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
   const [progress, setProgress]       = useState(0)
@@ -69,7 +70,7 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
         left:       '50%',
         transform:  'translateX(-50%)',
         textAlign:  'center',
-        opacity:    getMomentOpacity('projects', 0.04),
+        opacity:    getMomentOpacity('projects', 0.02),
         transition: 'opacity 0.6s ease',
         pointerEvents: 'none',
       }}>
@@ -117,6 +118,8 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
         onMouseEnter={onCardEnter}
         onMouseLeave={onCardLeave}
       />
+
+      <AboutText opacity={getMomentOpacity('about', 0.05)} />
 
     </div>
   )
