@@ -9,6 +9,8 @@ const curve = new THREE.CatmullRomCurve3(WAYPOINTS)
 
 // Calculate explosion point once — using toProgress so it's always 0-1
 const EXPLOSION_POINT = curve.getPointAt(toProgress(MOMENTS.transition.end))
+// Calculate where the fairy will be at the start of the about section
+const CONVERGE_POINT = curve.getPointAt(toProgress(MOMENTS.about.start))
 
 const MINI_COLORS = [
   '#FFB0C8', // pink
@@ -41,7 +43,7 @@ const SCATTER = [
   { rest: [ 3.0,  3.0,  0.5] },
 ]
 
-function MiniFairy({ index, originX, originY, originZ, scattered, converging, color, scaleF }) {
+function MiniFairy({ index, originX, originY, originZ, convergeX, convergeY, convergeZ, scattered, converging, done, color, scaleF }) {
   const meshRef = useRef()
   const phase   = useRef(Math.random() * Math.PI * 2)
 
@@ -61,17 +63,23 @@ function MiniFairy({ index, originX, originY, originZ, scattered, converging, co
   ]
   const originPos = [originX, originY, originZ]
 
-  const targetPos = converging
-    ? originPos
+  // When scattered — spread from explosion point
+  // When converging — fly toward where the fairy will reappear
+  const targetPos = done
+  ? [convergeX, convergeY, convergeZ]  // stay at converge point when done
+  : converging
+    ? [convergeX, convergeY, convergeZ]
     : scattered
       ? restPos
-      : originPos
+      : [originX, originY, originZ]
 
   const { position, scale } = useSpring({
     position: targetPos,
-    scale:    scattered || converging ? 1 : 0,
-    delay:    index * 200,
-    config:   { mass: 1.5, tension: 40, friction: 18 },
+    scale:    done ? 0 : scattered || converging ? 1 : 0,
+    delay:    done ? 0 : index * 200,  // no delay when hiding — instant
+    config:   done
+      ? { mass: 1, tension: 200, friction: 30 }  // fast collapse when done
+      : { mass: 1.5, tension: 40, friction: 18 }, // slow float otherwise
   })
 
   return (
@@ -99,8 +107,10 @@ function MiniFairy({ index, originX, originY, originZ, scattered, converging, co
 function Explosion({ progressRef }) {
   const [scattered,  setScattered]  = useState(false)
   const [converging, setConverging] = useState(false)
+  const [done, setDone] = useState(false)
   const wasScattered  = useRef(false)
   const wasConverging = useRef(false)
+  const wasDone = useRef(false)
 
   // Initialize to the actual explosion point — never [0,0,0]
   const originRef = useRef(EXPLOSION_POINT.clone())
@@ -111,12 +121,13 @@ function Explosion({ progressRef }) {
   useFrame(() => {
     const p = progressRef.current
   
-    const convergeStart = MOMENTS.projects.end + 500
-
+    const convergeStart = toProgress(MOMENTS.projects.end + 500)
+    const convergeEnd   = toProgress(MOMENTS.about.start)
+  
     const shouldScatter  = p >= toProgress(MOMENTS.transition.end) &&
-                           p <  toProgress(convergeStart)
-    const shouldConverge = p >= toProgress(convergeStart) &&
-                           p <  toProgress(MOMENTS.about.start)
+                           p <  convergeStart
+    const shouldConverge = p >= convergeStart && p < convergeEnd
+    const shouldBeDone   = p >= convergeEnd
   
     if (shouldScatter !== wasScattered.current) {
       wasScattered.current = shouldScatter
@@ -125,6 +136,10 @@ function Explosion({ progressRef }) {
     if (shouldConverge !== wasConverging.current) {
       wasConverging.current = shouldConverge
       setConverging(shouldConverge)
+    }
+    if (shouldBeDone !== wasDone.current) {
+      wasDone.current = shouldBeDone
+      setDone(shouldBeDone)
     }
   })
 
@@ -137,8 +152,12 @@ function Explosion({ progressRef }) {
           originX={EXPLOSION_POINT.x}
           originY={EXPLOSION_POINT.y}
           originZ={EXPLOSION_POINT.z}
+          convergeX={CONVERGE_POINT.x}
+          convergeY={CONVERGE_POINT.y}
+          convergeZ={CONVERGE_POINT.z}
           scattered={scattered}
           converging={converging}
+          done={done}
           color={color}
           scaleF={scaleF}
         />

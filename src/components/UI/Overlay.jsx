@@ -82,7 +82,7 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
           color:         'rgba(200,168,255,0.4)',
           margin:        0,
         }}>
-          ✦ menu ✦
+          ✦ our menu ✦
         </p>
         <h2 style={{
           fontFamily:    'serif',
@@ -101,16 +101,6 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
             background: 'rgba(200,168,255,0.3)',
             margin:     '0.8rem auto',
           }} />
-        <p style={{
-          fontFamily: 'sans-serif',
-          fontSize:   '1.1rem',
-          fontWeight: '300',
-          lineHeight: '1.7',
-          color:      'rgba(220,200,255,0.7)',
-          margin:     '0 0 1rem',
-        }}>
-          Hover over the cocktail projects for more information
-        </p>
       </div>
 
       <ProjectHoverCard 
@@ -119,7 +109,7 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
         onMouseLeave={onCardLeave}
       />
 
-      <AboutText opacity={getMomentOpacity('about', 0.05)} />
+      <AboutText opacity={getMomentOpacity('about', 0.03)} />
 
     </div>
   )

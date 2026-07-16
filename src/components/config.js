@@ -83,6 +83,7 @@ export const COLORS = {
   export const PROJECTS = [
     {
       label:       'BarBrain',
+      menuTag: 'Weekly Special',
       description: 'AI-powered bar management app. Inventory tracking, cocktail CRUD, and a Claude-powered assistant that knows your whole menu.',
       tech:        ['React', 'FastAPI', 'PostgreSQL', 'Claude API'],
       url:         'https://github.com/masarumoribe/barbrain',
@@ -91,6 +92,7 @@ export const COLORS = {
     },
     {
       label:       'Portfolio',
+      menuTag: 'House Recipe',
       description: 'The very thing you\'re looking at. A scroll-driven 3D journey built with React Three Fiber, a fairy orb, and too much caffeine.',
       tech:        ['React', 'Three.js', 'R3F', 'Rapier'],
       url:         'https://github.com/masarumoribe/my-portfolio',
@@ -99,6 +101,7 @@ export const COLORS = {
     },
     {
       label:       'Chika Hula',
+      menuTag: 'Our Tropical Twist',
       description: 'Website for a hula dance school in Tokyo. Clean, warm, and built to make visitors feel the aloha spirit before they even walk in.',
       tech:        ['React', 'Vite'],
       url:         'https://chikahula.com',
@@ -107,11 +110,12 @@ export const COLORS = {
     },
     {
       label:       'The Sarau',
+      menuTag: 'For Art Lovers',
       description: 'Digital home for an art curation collective. Designed to let the artwork speak — minimal interface, maximum impact.',
       tech:        ['WordPress', 'Elementor'],
       url:         'https://thesarau.me',
       featured:    false,
-      drink:       'Mojito',
+      drink:       'Caipirinha',
     },
   ]
 
@@ -146,7 +150,7 @@ export const MOMENTS = {
   skills:     { start: 4000,  end: 15000  },
   transition: { start: 16000,  end: 19000  },
   projects:   { start: 19200,  end: 21000 },
-  about:      { start: 22000, end: 25000 },
+  about:      { start: 23000, end: 25000 },
   contact:    { start: 25000, end: 30000 },
 }
 
