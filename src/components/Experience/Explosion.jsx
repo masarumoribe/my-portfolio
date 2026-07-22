@@ -112,6 +112,10 @@ function Explosion({ progressRef }) {
   const wasConverging = useRef(false)
   const wasDone = useRef(false)
 
+  // In Explosion.jsx — temporary
+  console.log('EXPLOSION_POINT:', EXPLOSION_POINT)
+  console.log('X should be close to 0 for center screen')
+
   // Initialize to the actual explosion point — never [0,0,0]
   const originRef = useRef(EXPLOSION_POINT.clone())
 

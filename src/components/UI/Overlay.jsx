@@ -4,6 +4,7 @@ import SkillCard from './SkillCard'
 import { MOMENTS, SKILLS, toProgress } from '../config'
 import ProjectHoverCard from './ProjectHoverCard'
 import AboutText from './AboutText'
+import ContactText from './ContactText'
 
 function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
   const [progress, setProgress]       = useState(0)
@@ -110,6 +111,8 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
       />
 
       <AboutText opacity={getMomentOpacity('about', 0.03)} />
+
+      <ContactText opacity={getMomentOpacity('contact', 0.03)} />
 
     </div>
   )

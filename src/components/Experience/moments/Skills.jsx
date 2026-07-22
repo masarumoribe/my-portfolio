@@ -25,9 +25,9 @@ const BOTTLE_DIRECTIONS = [
   { enter: [-5, -3,  0], rest: [1.8, 1, -2], exit: [ 4,  3,  2], scale: 1.3 },
   { enter: [ 5, -2,  1], rest: [ 1.5, 1, -2], exit: [-3,  4, -1], scale: 1.4 },
   { enter: [ 0, -5,  0], rest: [1.8,  0.5, -3], exit: [ 3, -4,  2], scale: 1.5 },
-  { enter: [-4,  3, -1], rest: [ 2.2,  0.8, -3], exit: [ 0, -5,  1], scale: 1.6 },
-  { enter: [ 4,  2,  1], rest: [1.2, 0.5, -4], exit: [-4,  2, -2], scale: 1.5 },
-  { enter: [ 0,  4,  0], rest: [ -1.8, 0.5, -4], exit: [ 0, -4,  0], scale: 1.4 },
+  { enter: [-4,  3, -1], rest: [ 2.4,  0.8, -3], exit: [ 0, -5,  1], scale: 1.6 },
+  { enter: [ 4,  2,  1], rest: [0, 0.5, -4], exit: [-4,  2, -2], scale: 1.5 },
+  { enter: [ 0,  4,  0], rest: [ -2.8, 0.5, -4], exit: [ 0, -4,  0], scale: 1.4 },
 ]
 
 function SingleBottle({ skill, index, progressRef, windowStart, windowEnd, centerPosRef }) {

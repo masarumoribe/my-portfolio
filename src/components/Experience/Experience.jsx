@@ -10,9 +10,11 @@ import Journey from './Journey'
 import Skills from './moments/Skills'
 import Explosion from './Explosion'
 import Projects from './moments/Projects'
+import Contact from './moments/Contact'
 
 function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProjectHover, onProjectUnhover }) {
-  const divRef         = useRef()
+  const divRef = useRef()
+  const fairyMeshRef = useRef()
 
   // Attached to window (not divRef) so it keeps firing even when the
   // pointer is over a fixed-position overlay (e.g. AboutText, ProjectHoverCard)
@@ -41,7 +43,7 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProje
       <Canvas
         camera={{ position: [0, 1, 6], fov: 55 }}
         onCreated={({ scene }) => {
-          scene.fog = new Fog(COLORS.fog, 8, 22)
+          scene.fog = new Fog(COLORS.fog, 20, 60)
         }}
       >
         {/* Lighting */}
@@ -59,7 +61,7 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProje
         />
 
         {/* Core components — all share progressRef */}
-        <Fairy progressRef={progressRef} targetRef={targetRef} />
+        <Fairy progressRef={progressRef} meshRef={fairyMeshRef}/>
         <CameraRig progressRef={progressRef} />
         <Journey 
           progressRef={progressRef} 
@@ -75,6 +77,8 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProje
           onProjectHover={onProjectHover}
           onProjectUnhover={onProjectUnhover}
         />
+
+        <Contact progressRef={progressRef} fairyRef={fairyMeshRef} />
 
       </Canvas>
     </div>

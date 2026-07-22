@@ -131,7 +131,7 @@ export const WAYPOINTS = [
   new THREE.Vector3( 0,    0.6,   2),   // Skills middle
   new THREE.Vector3( 3,    0.4,  -4),   // Skills end
   new THREE.Vector3( 0, 0.4, -10),   // transition — explosion
-  new THREE.Vector3(-2,    0.8, -16),   // Projects
+  new THREE.Vector3( 1,    0.8, -16),   // Projects
   new THREE.Vector3( 2,    1.0, -22),   // Projects middle
   new THREE.Vector3( 0,    0.6, -28),   // About
   new THREE.Vector3(-1,    0.8, -34),   // Contact
@@ -140,7 +140,7 @@ export const WAYPOINTS = [
 // ─── Moment thresholds ──────────────────────────────────────
 // Total scroll distance in pixels — increase this to make the whole
 // experience longer. 10000 = user needs to scroll 10000px to complete journey.
-export const TOTAL_SCROLL = 30000
+export const TOTAL_SCROLL = 28000
 
 // Moments are now defined in pixels instead of 0–1 fractions.
 // This makes it much easier to reason about timing —
@@ -151,8 +151,13 @@ export const MOMENTS = {
   transition: { start: 16000,  end: 19000  },
   projects:   { start: 19200,  end: 21000 },
   about:      { start: 23000, end: 25000 },
-  contact:    { start: 25000, end: 30000 },
+  contact:    { start: 27000, end: 28000 },
 }
 
 // Helper — converts a pixel value to 0–1 progress
 export const toProgress = (pixels) => pixels / TOTAL_SCROLL
+
+// Calculated after WAYPOINTS is defined
+const _curve = new THREE.CatmullRomCurve3(WAYPOINTS)
+export const LANTERN_PROGRESS = toProgress(MOMENTS.contact.start + 500)
+export const LANTERN_WORLD_POS = _curve.getPointAt(LANTERN_PROGRESS)
