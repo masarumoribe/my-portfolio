@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
+import { MOMENTS, toProgress } from '../config'
 
 // ProjectHoverCard shows project info when a cocktail is hovered.
 // Always appears in the same position regardless of which cocktail is hovered.
 // Props:
 //   project — the hovered project object, or null if nothing is hovered
 
-function ProjectHoverCard({ project, onMouseEnter, onMouseLeave }) {
+function ProjectHoverCard({ project, onMouseEnter, onMouseLeave, progress }) {
+  const inProjectsSection = progress >= toProgress(MOMENTS.projects.start) && progress <= toProgress(MOMENTS.projects.end)
+
+  const shouldShow = project && inProjectsSection
   // Keep last project in memory so we can fade it out before unmounting
   const [displayProject, setDisplayProject] = useState(null)
   const [visible, setVisible]               = useState(false)
 
   useEffect(() => {
-    if (project) {
+    if (shouldShow) {
       // New project — update content and show immediately
       setDisplayProject(project)
       setVisible(true)
@@ -21,7 +25,7 @@ function ProjectHoverCard({ project, onMouseEnter, onMouseLeave }) {
       const timer = setTimeout(() => setDisplayProject(null), 400)
       return () => clearTimeout(timer)
     }
-  }, [project])
+  }, [shouldShow, project])
 
   return (
     <div

@@ -108,6 +108,7 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
         project={hoveredProject} 
         onMouseEnter={onCardEnter}
         onMouseLeave={onCardLeave}
+        progress={progress}
       />
 
       <AboutText opacity={getMomentOpacity('about', 0.03)} />

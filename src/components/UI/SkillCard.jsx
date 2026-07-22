@@ -7,6 +7,9 @@
 function SkillCard({ skill, visible }) {
     return (
       <div style={{
+        backgroundColor: 'rgba(36, 28, 69, 0.5)',
+        padding: '2rem',
+        borderRadius: '0.5rem',
         position:   'fixed',
         bottom:     '10vh',
         left:       '50%',

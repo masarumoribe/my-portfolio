@@ -6,16 +6,8 @@ import * as THREE from 'three'
 
 export const COLORS = {
   // Background / environment
-  background:   '#292247',
+  background:   '#0f0b1f',
   fog:          '#0D0A1A',
-
-  // Counter and shelves — brighter for now so we can see them
-  counter:      '#4A3060',
-  counterTop:   '#6A4A80',
-  shelf:        '#4A3868',
-
-  // Walls — slightly lighter than bg so they're visible
-  wall:         '#1E1640',
 
   // Ambient light
   ambient:      '#2A1F4A',

@@ -1,8 +1,11 @@
 function ContactText({ opacity }) {
     return (
       <div style={{
+        backgroundColor: 'rgba(36, 28, 69, 0.5)',
+        padding: '3rem',
+        borderRadius: '0.5rem',
         position:      'absolute',
-        bottom:        '30vh',
+        bottom:        '20vh',
         left:          '50%',
         transform:     'translateX(-50%)',
         textAlign:     'center',
