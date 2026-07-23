@@ -54,7 +54,7 @@ function AboutText({ opacity }) {
         {/* Paragraphs */}
         {[
           'Half Colombian, half Japanese, raised in Bogotá and drawn to Tokyo by curiosity. After graduating in Civil Engineering I packed a bag and crossed the Pacific — barely speaking the language, figuring it out as I went.',
-          'I found my footing behind the bar. Ten years in Tokyo\'s finest venues — Tokyo American Club, Pullman Tokyo Tamachi — taught me precision, composure under pressure, and how to read a room in seconds.',
+          'I found my footing behind the bar. Ten years in some of Tokyo\'s finest venues — Tokyo American Club, Pullman Tokyo Tamachi — taught me precision, composure under pressure, and how to read a room in seconds.',
           'When COVID emptied the bar, I remembered something from university: I actually loved programming. I started exploring web development quietly, and somewhere between APIs and CSS animations I got hooked. The same instinct that makes a great cocktail — the balance of craft and creativity, logic and aesthetics — turns out to make great web experiences too.',
           'Now I\'m looking for a team that\'ll let me keep learning. Frontend is where I\'m strongest, but I\'m not afraid of the full stack.',
         ].map((text, i) => (

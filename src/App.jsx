@@ -51,6 +51,8 @@ function App() {
         hoveredProject={hoveredProject}
         onCardEnter={handleCardEnter}
         onCardLeave={handleCardLeave}
+        targetScrollY={targetScrollY}
+        scrollYRef={scrollYRef}
       />
     </>
   )

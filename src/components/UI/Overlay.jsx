@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Navigation from './Navigation'
 import ArrivalText from './ArrivalText'
 import SkillCard from './SkillCard'
 import { MOMENTS, SKILLS, toProgress } from '../config'
@@ -6,7 +7,7 @@ import ProjectHoverCard from './ProjectHoverCard'
 import AboutText from './AboutText'
 import ContactText from './ContactText'
 
-function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
+function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave, targetScrollY, scrollYRef }) {
   const [progress, setProgress]       = useState(0)
   const [activeSkill, setActiveSkill] = useState(null)
 
@@ -61,6 +62,11 @@ function Overlay({ progressRef, hoveredProject, onCardEnter, onCardLeave }) {
       pointerEvents: 'none',
       zIndex:        10,
     }}>
+      <Navigation
+        progressRef={progressRef}
+        targetScrollY={targetScrollY}
+        scrollYRef={scrollYRef}
+      />
       <ArrivalText opacity={getMomentOpacity('arrival', 0.06)} />
       <SkillCard skill={activeSkill} visible={activeSkill !== null} />
 
