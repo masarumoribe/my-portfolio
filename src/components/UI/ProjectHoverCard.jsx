@@ -29,6 +29,7 @@ function ProjectHoverCard({ project, onMouseEnter, onMouseLeave, progress }) {
 
   return (
     <div
+      id='project-hover-card'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{

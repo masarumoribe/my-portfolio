@@ -92,6 +92,10 @@ function MenuCard({ index, project, isVisible, origin, scaleF, onHover, onUnhove
           setHovered(false)
           onUnhover()
         }}
+        onPointerDown={() => {
+          // On mobile, pointerDown = tap — show the card
+          onHover(project)
+        }}
       >
         {/* Card backing — parchment colour */}
         <mesh position={[0, 0, -0.005]}>

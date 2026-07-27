@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import Experience from './components/Experience/Experience'
 import Overlay    from './components/UI/Overlay'
 
@@ -7,21 +7,44 @@ function App() {
   const targetRef     = useRef(0)
   const scrollYRef    = useRef(0)
   const targetScrollY = useRef(0)
+  const lastHoverTime = useRef(0)
   const hideTimer     = useRef(null)
 
   const [hoveredProject, setHoveredProject] = useState(null)
 
-  const handleProjectHover = useCallback((project) => {
-    // Clear any pending hide — user moved to another cocktail or back
-    if (hideTimer.current) clearTimeout(hideTimer.current)
-    setHoveredProject(project)
-  }, [])
+const handleProjectHover = useCallback((project) => {
+  if (hideTimer.current) clearTimeout(hideTimer.current)
+  
+  if (hoveredProject?.label === project.label) {
+    setHoveredProject(null)
+    return
+  }
+  
+  lastHoverTime.current = Date.now()  // record when card appeared
+  setHoveredProject(project)
+}, [hoveredProject])
+
+useEffect(() => {
+  const handleTouchStart = (e) => {
+    // Ignore touches within 500ms of card appearing
+    if (Date.now() - lastHoverTime.current < 500) return
+    
+    const card = document.getElementById('project-hover-card')
+    if (card && !card.contains(e.target) && hoveredProject) {
+      setTimeout(() => setHoveredProject(null), 50)
+    }
+  }
+
+  window.addEventListener('touchstart', handleTouchStart)
+  return () => window.removeEventListener('touchstart', handleTouchStart)
+}, [hoveredProject])
 
   const handleProjectUnhover = useCallback(() => {
+    const isMobile = window.innerWidth < 768
     // Delay hiding — gives user 400ms to move mouse to the card
     hideTimer.current = setTimeout(() => {
       setHoveredProject(null)
-    }, 600)
+    }, isMobile ? 3000 : 600)
   }, [])
 
   const handleCardEnter = useCallback(() => {

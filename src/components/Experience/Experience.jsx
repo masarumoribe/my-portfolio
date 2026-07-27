@@ -30,9 +30,36 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProje
       )
     }
 
+    // Touch handling for mobile
+    let touchStartY = 0
+
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY
+    }
+  
+    const handleTouchMove = (e) => {
+      e.preventDefault()
+      const touchY   = e.touches[0].clientY
+      const deltaY   = touchStartY - touchY  // inverted — swipe up = scroll forward
+      touchStartY    = touchY
+  
+      targetScrollY.current = THREE.MathUtils.clamp(
+        targetScrollY.current + deltaY * 8,  // multiplier — tune for feel
+        0,
+        TOTAL_SCROLL
+      )
+    }  
+
     // Use a non-passive listener so preventDefault works
     window.addEventListener('wheel', handleWheel, { passive: false })
-    return () => window.removeEventListener('wheel', handleWheel)
+    window.addEventListener('touchstart', handleTouchStart, { passive: false })
+    window.addEventListener('touchmove', handleTouchMove, { passive: false })
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchmove', handleTouchMove)
+    }
   }, [])
 
   return (
