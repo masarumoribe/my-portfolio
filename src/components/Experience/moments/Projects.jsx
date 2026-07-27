@@ -27,10 +27,10 @@ const CARD_SCALES = [1.1, 1.15, 1.2, 1.1]
 
 // Image paths — one per project in order
 const CARD_IMAGES = [
-  '/images/cocktail_barbrain.png',
-  '/images/cocktail_portfolio.png',
-  '/images/cocktail_chikahula.png',
-  '/images/cocktail_sarau.png',
+  '/images/cocktail_barbrain.webp',
+  '/images/cocktail_portfolio.webp',
+  '/images/cocktail_chikahula.webp',
+  '/images/cocktail_sarau.webp',
 ]
 
 // Card dimensions in Three.js units
