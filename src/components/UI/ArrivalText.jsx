@@ -19,6 +19,19 @@ function ArrivalText({ opacity }) {
         // Shift up slightly as it fades in for a gentle float-in feel
         translate:  `0 ${(1 - opacity) * 20}px`,
       }}>
+
+        {/* Logo */}
+        <img
+          src="/logo.png"
+          alt="Masaru Moribe logo"
+          style={{
+            width:        '150px',
+            height:       '150px',
+            marginTop: '-15px',
+            marginBottom: '10px',
+            opacity:      0.9,
+          }}
+        />
   
         {/* Name */}
         <h1 style={{

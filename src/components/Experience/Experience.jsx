@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Sparkles } from '@react-three/drei'
+import { Sparkles, Preload } from '@react-three/drei'
 import { Fog } from 'three'
 import * as THREE from 'three'
 import { COLORS, WAYPOINTS, TOTAL_SCROLL } from '../config'
@@ -107,6 +107,7 @@ function Experience({ progressRef, targetRef, scrollYRef, targetScrollY, onProje
 
         <Contact progressRef={progressRef} fairyRef={fairyMeshRef} />
 
+        <Preload all />
       </Canvas>
     </div>
   )

@@ -1,9 +1,11 @@
 function AboutText({ opacity }) {
+  const isMobile = window.innerWidth < 500
+
     return (
       <div style={{
-        backgroundColor: 'rgba(36, 28, 69, 0.5)',
-        padding: '3rem',
-        borderRadius: '0.5rem',
+        backgroundColor: isMobile ? 'rgba(36, 28, 69, 0)' : 'rgba(36, 28, 69, 0.5)',
+        padding: isMobile ? '0' : '3rem',
+        borderRadius:'0.5rem',
         position:   'absolute',
         top:        '50%',
         left:       '50%',
