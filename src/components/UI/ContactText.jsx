@@ -1,3 +1,5 @@
+import { label } from "three/tsl"
+
 function ContactText({ opacity }) {
     return (
       <div style={{
@@ -71,12 +73,14 @@ function ContactText({ opacity }) {
             { label: 'Email',    url: 'mailto:masaru.moribe1@gmail.com' },
             { label: 'GitHub',   url: 'https://github.com/masarumoribe' },
             { label: 'LinkedIn', url: 'https://linkedin.com/in/masaru-aya-moribe-829a99b9' },
+            { label: 'Resume',  url: '/masaru-moribe-cv.pdf', download: true },
           ].map(link => (
             
             <a
               key={link.label}
               href={link.url}
               target={link.label === 'Email' ? '_self' : '_blank'}
+              download={link.download ? 'Masaru_Moribe_CV.pdf' : undefined}
               rel="noopener noreferrer"
               style={{
                 fontFamily:     'sans-serif',
