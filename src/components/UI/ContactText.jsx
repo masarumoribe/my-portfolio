@@ -1,5 +1,14 @@
 import { label } from "three/tsl"
 
+const trackClick = (label) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'click', {
+      event_category: 'contact',
+      event_label: label,
+    })
+  }
+}
+
 function ContactText({ opacity }) {
     return (
       <div style={{
@@ -82,6 +91,7 @@ function ContactText({ opacity }) {
               target={link.label === 'Email' ? '_self' : '_blank'}
               download={link.download ? 'Masaru_Moribe_CV.pdf' : undefined}
               rel="noopener noreferrer"
+              onClick={() => trackClick(link.label)}
               style={{
                 fontFamily:     'sans-serif',
                 fontSize:       '0.72rem',

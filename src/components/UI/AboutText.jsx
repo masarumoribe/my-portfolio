@@ -1,6 +1,15 @@
 function AboutText({ opacity }) {
   const isMobile = window.innerWidth < 500
 
+  const trackClick = (label) => {
+    if (typeof window.gtag !== 'undefined') {
+      window.gtag('event', 'click', {
+        event_category: 'about',
+        event_label: label,
+      })
+    }
+  }
+  
     return (
       <div style={{
         backgroundColor: isMobile ? 'rgba(36, 28, 69, 0)' : 'rgba(36, 28, 69, 0.5)',
@@ -90,6 +99,7 @@ function AboutText({ opacity }) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackClick(link.label)}
               style={{
                 fontFamily:     'sans-serif',
                 fontSize:       '0.72rem',
