@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import Experience from './components/Experience/Experience'
 import Overlay    from './components/UI/Overlay'
+import LoadingScreen from './components/UI/LoadingScreen'
 
 function App() {
   const progressRef   = useRef(0)
@@ -61,6 +62,7 @@ useEffect(() => {
 
   return (
     <>
+      <LoadingScreen />
       <Experience
         progressRef={progressRef}
         targetRef={targetRef}
